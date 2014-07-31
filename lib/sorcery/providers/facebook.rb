@@ -12,7 +12,7 @@ module Sorcery
 
       attr_reader   :mode, :param_name, :parse
       attr_accessor :access_permissions, :display, :scope, :token_url,
-                    :user_info_path
+                    :user_info_path, :credentials, :key_fetcher, :use_ssl
 
       def initialize
         super
@@ -58,6 +58,23 @@ module Sorcery
           param_name: param_name, parse: parse)
       end
 
+      def key
+        (credentials[key_fetcher.call]["key"] rescue nil) || raise('You need to provide a value for "key"')
+      end
+
+      def secret
+        (credentials[key_fetcher.call]["secret"] rescue nil) || raise('You need to provide a value for "secret"')
+      end
+
+      def callback_url
+        if key && secret
+          url = ((credentials[key_fetcher.call]["callback_url"] rescue nil) || raise('You need to provide a value for "callback_url"'))
+        else
+          raise('You need to provide a value for "secret" and "key"')
+        end
+        url.gsub!('http', 'https') if use_ssl
+        url
+      end
     end
   end
 end
