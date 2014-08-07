@@ -114,7 +114,6 @@ Rails.application.config.sorcery.configure do |config|
   # config.facebook.user_info_mapping = {:email => "name"}
   # config.facebook.access_permissions = ["email", "publish_stream"]
   # config.facebook.display = "page"
-  # config.facebook.use_ssl = false
   #
   # config.github.key = ""
   # config.github.secret = ""

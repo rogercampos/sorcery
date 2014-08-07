@@ -12,7 +12,7 @@ module Sorcery
 
       attr_reader   :mode, :param_name, :parse
       attr_accessor :access_permissions, :display, :scope, :token_url,
-                    :user_info_path, :credentials, :key_fetcher, :use_ssl
+                    :user_info_path, :credentials, :key_fetcher
 
       def initialize
         super
@@ -72,7 +72,6 @@ module Sorcery
         else
           raise('You need to provide a value for "secret" and "key"')
         end
-        url.gsub!('http', 'https') if use_ssl
         url
       end
     end
